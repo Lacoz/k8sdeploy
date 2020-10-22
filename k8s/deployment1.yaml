@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpappnp
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30080
+  selector:
+    app: app0
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app0
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: app0
+      labels:
+        app: app0
+    spec:
+      containers:
+      - image: zigoprofesia/phpapache:8d39105
+        name: phpapache
+        env:
+            - name: DB_HOST
+              value: "database_host_env"
+  selector:
+    matchLabels:
+      app: app0
+
