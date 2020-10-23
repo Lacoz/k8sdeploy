@@ -26,7 +26,7 @@ spec:
         app: app0
     spec:
       containers:
-      - image: zigoprofesia/phpapache:8d39105
+      - image: zigoprofesia/phpapache:1dbfed7
         name: phpapache
         env:
             - name: DB_HOST
@@ -37,42 +37,15 @@ spec:
 
 --- 
 
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
 metadata:
   name: es7
 spec:
-  replicas: 3
-  template:
-    metadata:
-      name: es7
-      labels:
-        app: es7
-    spec:
-      containers:
-      - image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
-        name: esdocker
-        env:
-          - name: ES_JAVA_OPTS
-            value: "-Xms512m -Xmx512m"
-          - name: discovery.seed_hosts
-            value: ""
-  selector:
-    matchLabels:
-      app: es7
+  version: 7.9.1
+  nodeSets:
+  - name: ns
+    count: 2
+    config:
+      node.store.allow_mmap: false
 
---- 
-
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: esnp
-spec:
-  type: NodePort
-  ports:
-  - port: 9200
-    targetPort: 9200
-    nodePort: 30090
-  selector:
-    app: es7
