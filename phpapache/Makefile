@@ -13,7 +13,7 @@ rundev:
 	@docker run -v "$$PWD":/var/www/html/ -p 8088:80 ${LATEST}
 
 push:
-	@docker push ${NAME}
+	@docker push ${IMG} ${LATEST}
 
 login:
 	@docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
