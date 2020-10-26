@@ -28,19 +28,10 @@ spec:
       containers:
       - image: zigoprofesia/phpapache:2303fd8
         name: phpapache
-        volumeMounts:
-        - name: config
-          mountPath: "/var/www/html/.env"
-          readOnly: true
-          subPath: ".env"
-      volumes:
-      - name: config
-        configMap:
-          name: extra-config
-          items:
-          - key: "web-dot-env"
-            path: ".env"
-    
+        envFrom:
+          - configMapRef:
+              name: web-configmap
+
   selector:
     matchLabels:
       app: app0
@@ -64,10 +55,9 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: extra-config
+  name: web-configmap
 data:
-  web-dot-env: |
-    ELASTICSEARCH_HOST=configmap
-    ELASTICSEARCH_PORT=9200
+  ELASTICSEARCH_HOST: "$(ES7_ES_HTTP_SERVICE_HOST)xx"
+  ELASTICSEARCH_PORT: "9200"
 
   
