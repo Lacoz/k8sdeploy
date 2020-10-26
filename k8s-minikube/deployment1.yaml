@@ -26,7 +26,7 @@ spec:
         app: app0
     spec:
       containers:
-      - image: zigoprofesia/phpapache:1dbfed7
+      - image: zigoprofesia/phpapache:0e40eb1
         name: phpapache
         env:
             - name: DB_HOST
@@ -49,3 +49,15 @@ spec:
     config:
       node.store.allow_mmap: false
 
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: special-config
+data:
+  ELASTICSEARCH_HOST:configmap
+  ELASTICSEARCH_PORT:9200
+  ELASTICSEARCH_PASSWORD:default
+
+  

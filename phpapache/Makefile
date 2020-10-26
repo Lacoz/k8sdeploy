@@ -8,6 +8,10 @@ build:
 	@docker build -t ${IMG} .
 	@docker tag ${IMG} ${LATEST}
 
+rundev:
+	@echo "docker run -v "$$PWD":/var/www/html/ -p 8088:80 ${LATEST}"
+	@docker run -v "$$PWD":/var/www/html/ -p 8088:80 ${LATEST}
+
 push:
 	@docker push ${NAME}
 

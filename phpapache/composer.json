@@ -1,5 +1,6 @@
 {
     "require": {
-        "elasticsearch/elasticsearch": "^7.9"
+        "elasticsearch/elasticsearch": "^7.9",
+        "vlucas/phpdotenv": "^5.2"
     }
 }
