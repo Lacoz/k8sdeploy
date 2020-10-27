@@ -19,7 +19,7 @@ kind: Deployment
 metadata:
   name: app0
 spec:
-  replicas: 2
+  replicas: 5
   template:
     metadata:
       name: app0
@@ -34,11 +34,11 @@ spec:
               value: "database_host_env"
         resources:
           requests:
-            memory: "64Mi"
-            cpu: "250m"
+            memory: "100Mi"
+            cpu: "100m"
           limits:
-            memory: "128Mi"
-            cpu: "500m"              
+            memory: "200Mi"
+            cpu: "200m"              
   selector:
     matchLabels:
       app: app0

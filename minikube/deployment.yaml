@@ -9,21 +9,21 @@ spec:
     targetPort: 80
     nodePort: 30080
   selector:
-    app: app0
+    app: webapp
 
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app0
+  name: webapp
 spec:
   replicas: 2
   template:
     metadata:
-      name: app0
+      name: webapp
       labels:
-        app: app0
+        app: webapp
     spec:
       containers:
       - image: zigoprofesia/phpapache:2303fd8
@@ -34,7 +34,7 @@ spec:
 
   selector:
     matchLabels:
-      app: app0
+      app: webapp
 
 --- 
 
@@ -57,7 +57,7 @@ kind: ConfigMap
 metadata:
   name: web-configmap
 data:
-  ELASTICSEARCH_HOST: "$(ES7_ES_HTTP_SERVICE_HOST)xx"
+  ELASTICSEARCH_HOST: "$(ES7_ES_HTTP_SERVICE_HOST)"
   ELASTICSEARCH_PORT: "9200"
 
   
